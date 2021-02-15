@@ -6,8 +6,8 @@ import { PrincipalModule } from './components/principal/principal.module';
 
 // Components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/authentication/login/login.component';
+import { RegisterComponent } from './components/authentication/register/register.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 
 
@@ -24,7 +24,6 @@ import { PrincipalComponent } from './components/principal/principal.component';
     FormsModule,
     ReactiveFormsModule,
     PrincipalModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]
