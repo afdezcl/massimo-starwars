@@ -35,4 +35,11 @@ Navigate to `http://localhost:4200/`.
 
 # Notas del desarrollador:
 
+## Branch naming convention
+
+A branch must be named following this convention:
+
+* Start with MASS-[ISSUE_NUMBER]_[SHORT_DESCRIPTION]
+* For example: `MASS-9_login_page`
+
 
