@@ -6,16 +6,12 @@ import { PrincipalModule } from './components/principal/principal.module';
 
 // Components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/authentication/login/login.component';
-import { RegisterComponent } from './components/authentication/register/register.component';
 import { PrincipalComponent } from './components/principal/principal.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     PrincipalComponent
   ],
   imports: [
