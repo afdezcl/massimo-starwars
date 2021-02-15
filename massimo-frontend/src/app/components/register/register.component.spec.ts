@@ -11,11 +11,11 @@ describe('RegisterComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RegisterComponent ],
-      imports:[         
-        FormsModule, 
+      imports: [
+        FormsModule,
         RouterTestingModule.withRoutes([]),
         ReactiveFormsModule],
-    
+
     })
     .compileComponents();
   }));

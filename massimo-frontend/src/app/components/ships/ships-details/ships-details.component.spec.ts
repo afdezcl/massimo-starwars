@@ -10,14 +10,14 @@ describe('ShipsDetailsComponent', () => {
   let fixture: ComponentFixture<ShipsDetailsComponent>;
 
   @Component({
-    selector: 'pagination-controls',
+    selector: 'app-pagination-controls',
     template: '<p>Mock Pagination controls Component</p>'
   })
   class MockPaginationControls {}
   @Pipe({name: 'paginate'})
   class MockPipe implements PipeTransform {
       transform(value: number): number {
-          //Do stuff here, if you want
+          // Do stuff here, if you want
           return value;
       }
   }

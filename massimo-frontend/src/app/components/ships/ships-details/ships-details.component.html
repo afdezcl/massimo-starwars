@@ -4,7 +4,7 @@
         <h3 class="panel-title">{{ships.name}}</h3>
     </div>
     <div class="panel-body text-center color">
-        <img [src]="getStarshipId(ships.url)" onError="this.src='assets/img/errorImg_x3.svg'" class="imgSize">
+        <img [src]="getshipId(ships.url)" onError="this.src='assets/img/errorImg_x3.svg'" class="imgSize">
     </div>
 </div>
 
@@ -20,7 +20,7 @@
         </div>
         <div class="modal-body">
           <span>Model : {{modelDetails}}</span><br>
-          <span>starship_class: {{starship_class}}</span>
+          <span>starship_class: {{starshipClass}}</span>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
