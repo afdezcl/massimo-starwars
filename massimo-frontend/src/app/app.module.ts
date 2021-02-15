@@ -7,12 +7,14 @@ import { PrincipalModule } from './components/principal/principal.module';
 // Components
 import { AppComponent } from './app.component';
 import { PrincipalComponent } from './components/principal/principal.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
