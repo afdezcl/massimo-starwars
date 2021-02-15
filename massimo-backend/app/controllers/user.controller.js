@@ -20,6 +20,7 @@ exports.register = (req, res) => {
 
         const hashedPassword = bcrypt.hashSync(req.body.password, 8);
         const userToAdd = new User({
+            username: req.body.username,
             email: req.body.email,
             password: hashedPassword
         });
