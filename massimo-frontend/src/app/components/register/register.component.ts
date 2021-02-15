@@ -13,7 +13,7 @@ import usersList from 'src/assets/json/users.json';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  dataLoading: boolean = false;
+  dataLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -27,17 +27,17 @@ export class RegisterComponent implements OnInit {
       username: [ '', [Validators.required, Validators.minLength(3)]],
       email: [ '', [Validators.required, Validators.minLength(6)]],
 
-    })
+    });
   }
 
   registerUser() {
-    if (this.registerForm.invalid) { return }
+    if (this.registerForm.invalid) { return; }
     // TODO : Falta integrar el servicio para registrar al usuario
     // JSON simulando usuarios
-    var userLogin = this.registerForm.value;
-    usersList.push(userLogin)
-    console.log('User Register -->', usersList)
-    this.router.navigate(['/principal/ships'])
+    const userLogin = this.registerForm.value;
+    usersList.push(userLogin);
+    console.log('User Register -->', usersList);
+    this.router.navigate(['/principal/ships']);
 
   }
 

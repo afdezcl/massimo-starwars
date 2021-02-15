@@ -9,10 +9,10 @@ describe('PrincipalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PrincipalComponent ],
-       imports:[RouterTestingModule.withRoutes([])],
+      declarations: [PrincipalComponent],
+      imports: [RouterTestingModule.withRoutes([])],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
