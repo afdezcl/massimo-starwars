@@ -3,13 +3,19 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve ",
+    "start": "ng serve",
     "build": "ng build",
-    "test": "jest",
+    "test": "npx jest",
     "coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "lint": "ng lint",
     "e2e": "ng e2e"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run test"
+    }
   },
   "private": true,
   "dependencies": {
@@ -23,6 +29,7 @@
     "@angular/router": "~11.0.9",
     "@popperjs/core": "^2.4.4",
     "bootstrap": "^4.5.0",
+    "husky": "^5.0.9",
     "jest-marbles": "^2.5.1",
     "jquery": "^3.5.1",
     "ngx-pagination": "^5.0.0",
