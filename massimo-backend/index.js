@@ -31,8 +31,6 @@ app.get('/', (req, res) => {
     res.json({"message": "Welcome to Massimo-Authentication application."});
 });
 
-require('./app/routes/user.routes.js')(app);
-
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");
 });
