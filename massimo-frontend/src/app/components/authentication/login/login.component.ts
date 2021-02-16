@@ -13,8 +13,8 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 export class LoginComponent implements OnInit {
 
   private readonly ERROR_CODE_WRONG_LOGIN = 401;
-  loginForm: FormGroup;
-  dataLoading = false;
+  public loginForm: FormGroup;
+  public dataLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,11 +49,16 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/ships');
         },
           (error: HttpErrorResponse) => {
-            if (error.status === this.ERROR_CODE_WRONG_LOGIN) {
-              console.log('Email or password was not correct');
-            }
+            this.handleLoginError(error);
           });
     }
   }
+
+  handleLoginError(error: HttpErrorResponse): void {
+    if (error.status === this.ERROR_CODE_WRONG_LOGIN) {
+      console.log('Email or password was not correct');
+    }
+  }
+
 }
 
