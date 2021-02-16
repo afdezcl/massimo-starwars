@@ -16,19 +16,27 @@ export class RegisterComponent implements OnInit {
   dataLoading = false;
 
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
-      first_name: [ '', [Validators.required, Validators.minLength(3)]],
-      last_name: [ '', [Validators.required, Validators.minLength(3)]],
-      username: [ '', [Validators.required, Validators.minLength(3)]],
-      email: [ '', [Validators.required, Validators.minLength(6)]],
-
-    });
+    this.initRegisterForm();
   }
+
+  initRegisterForm(): void {
+    this.registerForm = this.formBuilder.group({
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['']
+    }, { validators: this.checkPasswords });
+  }
+
+  get form() {
+    return this.registerForm.controls;
+  }
+
 
   registerUser() {
     if (this.registerForm.invalid) { return; }
@@ -39,6 +47,12 @@ export class RegisterComponent implements OnInit {
     console.log('User Register -->', usersList);
     this.router.navigate(['/principal/ships']);
 
+  }
+
+  checkPasswords(form: FormGroup) {
+    const password = form.controls.password.value;
+    const confirmPassword = form.controls.confirmPassword.value;
+    return password === confirmPassword ? null : { notSame: true };
   }
 
 }
