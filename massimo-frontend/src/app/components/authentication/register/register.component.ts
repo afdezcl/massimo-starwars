@@ -50,17 +50,20 @@ export class RegisterComponent implements OnInit {
 
       this.authService.register(user)
         .subscribe((response: any) => {
-          console.log(response);
           this.router.navigateByUrl('');
         },
           (error: HttpErrorResponse) => {
-            if (error.status === this.ERROR_CODE_USER_EXISTS) {
-              console.log('User already exists');
-            }
-            console.log(error);
+            this.handleRegisterError(error);
           });
     }
   }
+
+  handleRegisterError(error: HttpErrorResponse): void {
+    if (error.status === this.ERROR_CODE_USER_EXISTS) {
+
+    }
+  }
+
 
   checkPasswords(form: FormGroup) {
     const password = form.controls.password.value;
