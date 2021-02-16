@@ -39,14 +39,9 @@ export class RegisterComponent implements OnInit {
 
 
   registerUser() {
-    if (this.registerForm.invalid) { return; }
-    // TODO : Falta integrar el servicio para registrar al usuario
-    // JSON simulando usuarios
-    const userLogin = this.registerForm.value;
-    usersList.push(userLogin);
-    console.log('User Register -->', usersList);
-    this.router.navigate(['/principal/ships']);
+    if (this.registerForm.valid) {
 
+    }
   }
 
   checkPasswords(form: FormGroup) {
