@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,7 +14,9 @@ describe('LoginComponent', () => {
       imports: [
         FormsModule,
         RouterTestingModule.withRoutes([]),
-        ReactiveFormsModule],
+        ReactiveFormsModule,
+        HttpClientModule
+      ],
     })
       .compileComponents();
   }));

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Register } from 'src/app/models/auth/register.interface';
 import { Login } from 'src/app/models/auth/login.interface';
 import { map } from 'rxjs/operators';
+import { LoginResponse } from 'src/app/models/auth/loginResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,10 @@ export class AuthenticationService {
     return this.httpClient.post<any>(`${environment.apiAuthentication}/v1/users/register`, user);
   }
 
-  login(user: Login): Observable<any> {
-    return this.httpClient.post<any>(`${environment.apiAuthentication}/v1/users/login`, user)
-      .pipe(map(response => {
-        console.log(response);
-        this.setJwtToken(response);
+  login(user: Login): Observable<void> {
+    return this.httpClient.post<LoginResponse>(`${environment.apiAuthentication}/v1/users/login`, user)
+      .pipe(map((response: LoginResponse) => {
+        this.setJwtToken(response.token);
       }));
   }
 

@@ -3,7 +3,7 @@
     <p class="text-center">Enter your email and password to access</p>
     <form [formGroup]="loginForm" (submit)="loginUser()" class="form">
         <div class="form-group mt-5">
-            <input type="text" class="form-control" placeholder="Email" formControlName="email"/>
+            <input type="email" name="email" class="form-control" placeholder="Email" formControlName="email"/>
             <hr class="hr-line">
             <div
                 *ngIf="loginForm.get('email').errors && (loginForm.get('email').dirty || loginForm.get('email').touched)">
