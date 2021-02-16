@@ -125,7 +125,7 @@ describe('LoginComponent', () => {
 
       component.loginUser();
 
-      expect(handleLoginErrorSpy);
+      expect(handleLoginErrorSpy).toBeCalledWith(error);
     });
 */
   });
