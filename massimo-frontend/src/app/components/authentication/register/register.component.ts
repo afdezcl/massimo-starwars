@@ -1,9 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-
-// JSON
-import usersList from 'src/assets/json/users.json';
+import { Register } from 'src/app/models/auth/register.interface';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -12,12 +12,14 @@ import usersList from 'src/assets/json/users.json';
 })
 export class RegisterComponent implements OnInit {
 
+  private readonly ERROR_CODE_USER_EXISTS = 409;
   registerForm: FormGroup;
   dataLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +42,23 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
     if (this.registerForm.valid) {
+      const user: Register = {
+        username: this.form.username.value,
+        email: this.form.email.value,
+        password: this.form.password.value,
+      };
 
+      this.authService.register(user)
+        .subscribe((response: any) => {
+          console.log(response);
+          this.router.navigateByUrl('');
+        },
+          (error: HttpErrorResponse) => {
+            if (error.status === this.ERROR_CODE_USER_EXISTS) {
+              console.log('User already exists');
+            }
+            console.log(error);
+          });
     }
   }
 

@@ -12,6 +12,6 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) { }
 
   register(user: Register): Observable<any> {
-    return this.httpClient.post<any>(environment.apiAuthentication + 'v1/users/register', user);
+    return this.httpClient.post<any>(`${environment.apiAuthentication}/v1/users/register`, user);
   }
 }
