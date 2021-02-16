@@ -1,9 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-
-// JSON
-import usersList from 'src/assets/json/users.json';
+import { Login } from 'src/app/models/auth/login.interface';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -12,34 +12,53 @@ import usersList from 'src/assets/json/users.json';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
-  dataLoading = false;
-  users: any = usersList;
-  unregistered = false;
-  invalid = false;
+  private readonly ERROR_CODE_WRONG_LOGIN = 401;
+  public loginForm: FormGroup;
+  public dataLoading = false;
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      username: [ '', [Validators.required, Validators.minLength(3)]],
-      password: [ '', [Validators.required, Validators.minLength(6)]]
+    this.initLoginForm();
+  }
+
+  initLoginForm(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
+
+  get form() {
+    return this.loginForm.controls;
+  }
+
   loginUser() {
-    if (this.loginForm.invalid) { return; }
-    // TODO : Falta integrar el servicio para autentificar al usuario
-    // JSON simulando usuarios
-    const userLogin = this.loginForm.value.username;
-    const filterJson = this.users.filter((user) => user.first_name === userLogin);
-    if (filterJson.length > 0) {
-      this.router.navigate(['/principal/ships']);
-    } else {
-      this.unregistered = true;
+    if (this.loginForm.valid) {
+      const user: Login = {
+        email: this.form.email.value,
+        password: this.form.password.value,
+      };
+
+      this.authService.login(user)
+        .subscribe(() => {
+          this.router.navigateByUrl('/ships');
+        },
+          (error: HttpErrorResponse) => {
+            this.handleLoginError(error);
+          });
     }
   }
+
+  handleLoginError(error: HttpErrorResponse): void {
+    if (error.status === this.ERROR_CODE_WRONG_LOGIN) {
+      console.log('Email or password was not correct');
+    }
+  }
+
 }
 
