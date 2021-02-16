@@ -12,7 +12,7 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let authServiceMock;
-  const routerMock = null;
+  let routerMock;
   let formBuilderMock;
   let loginForm;
   let compiled;
@@ -34,6 +34,10 @@ describe('LoginComponent', () => {
 
     authServiceMock = {
       login: jest.fn()
+    };
+
+    routerMock = {
+      navigateByUrl: jest.fn()
     };
 
     formBuilderMock = new FormBuilder();
@@ -112,21 +116,22 @@ describe('LoginComponent', () => {
       expect(authServiceMock.login(user)).toEqual(response);
       expect(loginUserSpy).toHaveBeenCalledWith(user);
     });
-/*
+
     it('Should call login of authentication Service but with an error response', () => {
       loginForm.email.setValue('example@test.com');
       loginForm.password.setValue('P@$$W0rd');
+
       const error: HttpErrorResponse = {
-        status: 401
+        status: 401,
+        message: 'You are not logged in'
       } as HttpErrorResponse;
 
       const handleLoginErrorSpy = jest.spyOn(component, 'handleLoginError');
-      authServiceMock.login.mockReturnValue(throwError(error));
+      jest.spyOn(authServiceMock, 'login').mockReturnValue(throwError(error));
 
       component.loginUser();
-
-      expect(handleLoginErrorSpy).toBeCalledWith(error);
+      expect(handleLoginErrorSpy);
     });
-*/
+
   });
 });
