@@ -33,4 +33,8 @@ export class AuthenticationService {
     return localStorage.getItem('JWT_TOKEN');
   }
 
+  isLoggedIn() {
+    return !!this.getJwtToken();
+  }
+
 }
