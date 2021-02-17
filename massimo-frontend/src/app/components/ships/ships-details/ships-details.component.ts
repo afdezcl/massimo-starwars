@@ -1,4 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Ship } from 'src/app/models/ships/ship.interface';
+import { ShipResponse } from 'src/app/models/ships/shipResponse.interface';
+import { AppState } from 'src/app/store/models/app-state.model';
 import { environment } from 'src/environments/environment';
 declare var $: any;
 
@@ -10,23 +14,39 @@ declare var $: any;
 })
 export class ShipsDetailsComponent implements OnInit {
 
-  @Input() dataList: any;
-  config: any;
-  url = '';
+  @Output() shipPageChanged: EventEmitter<number> = new EventEmitter<number>();
+  public config: any;
+  public currentPage = 1;
+  public dataList: ShipResponse;
+
   // Modal
   titleDetails = '';
   modelDetails = '';
   starshipClass = '';
+  imageModalURL = '';
 
-  constructor() {
+  constructor(
+    private store: Store<AppState>
+  ) {
   }
 
   ngOnInit(): void {
-    this.config = {
-      itemsPerPage: 10,
-      currentPage: 1,
-      totalItems: this.dataList.length
-    };
+    this.store.select(store => store.ships.list).subscribe((response: ShipResponse) => {
+      if (response) {
+        this.dataList = response;
+        this.initPaginationConfiguration();
+      }
+    });
+  }
+
+  initPaginationConfiguration(): void {
+    if (this.dataList) {
+      this.config = {
+        itemsPerPage: 10,
+        currentPage: this.currentPage,
+        totalItems: this.dataList.count
+      };
+    }
   }
 
   getStarshipId(url: string): string {
@@ -34,15 +54,17 @@ export class ShipsDetailsComponent implements OnInit {
     return `${environment.imagesAPI}${shipId}.jpg`;
   }
 
-  pageChanged(event) {
-    this.config.currentPage = event;
+  pageChanged(page: number): void {
+    this.currentPage = page;
+    this.shipPageChanged.emit(page);
   }
 
-  openDetails(details) {
+  openDetails(ship: Ship): void {
     $('#exampleModal').modal('show');
-    this.titleDetails = details.name;
-    this.modelDetails = details.model;
-    this.starshipClass = details.starship_class;
+    this.imageModalURL = this.getStarshipId(ship.url);
+    this.titleDetails = ship.name;
+    this.modelDetails = ship.model;
+    this.starshipClass = ship.starship_class;
   }
 
 }

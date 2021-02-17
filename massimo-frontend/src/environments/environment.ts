@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiAuthentication: 'http://localhost:3000',
-  imagesAPI: 'https://starwars-visualguide.com/assets/img/starships/'
+  imagesAPI: 'https://starwars-visualguide.com/assets/img/starships/',
+  starShipsAPI: 'https://swapi.dev/api/starships/'
 };
 
 /*
