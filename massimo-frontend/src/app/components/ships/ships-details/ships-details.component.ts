@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Ship } from 'src/app/models/ships/ship.interface';
 import { ShipResponse } from 'src/app/models/ships/shipResponse.interface';
 import { AppState } from 'src/app/store/models/app-state.model';
 import { environment } from 'src/environments/environment';
@@ -22,7 +23,7 @@ export class ShipsDetailsComponent implements OnInit {
   titleDetails = '';
   modelDetails = '';
   starshipClass = '';
-
+  imageModalURL = '';
 
   constructor(
     private store: Store<AppState>
@@ -33,12 +34,12 @@ export class ShipsDetailsComponent implements OnInit {
     this.store.select(store => store.ships.list).subscribe((response: ShipResponse) => {
       if (response) {
         this.dataList = response;
-        this.initConfigurationPagination();
+        this.initPaginationConfiguration();
       }
     });
   }
 
-  initConfigurationPagination() {
+  initPaginationConfiguration(): void {
     if (this.dataList) {
       this.config = {
         itemsPerPage: 10,
@@ -53,16 +54,17 @@ export class ShipsDetailsComponent implements OnInit {
     return `${environment.imagesAPI}${shipId}.jpg`;
   }
 
-  pageChanged(page: number) {
+  pageChanged(page: number): void {
     this.currentPage = page;
     this.shipPageChanged.emit(page);
   }
 
-  openDetails(details) {
+  openDetails(ship: Ship): void {
     $('#exampleModal').modal('show');
-    this.titleDetails = details.name;
-    this.modelDetails = details.model;
-    this.starshipClass = details.starship_class;
+    this.imageModalURL = this.getStarshipId(ship.url);
+    this.titleDetails = ship.name;
+    this.modelDetails = ship.model;
+    this.starshipClass = ship.starship_class;
   }
 
 }
