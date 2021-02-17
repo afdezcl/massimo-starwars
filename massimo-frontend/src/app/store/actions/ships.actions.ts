@@ -9,7 +9,7 @@ export enum ShipsActionTypes {
 
 export class LoadShipsPageAction implements Action {
     readonly type = ShipsActionTypes.LOAD_SHIPS_PAGE;
-    constructor(public payload: ShipResponse) { }
+    constructor(public payload: { page: number }) { }
 }
 
 export class LoadShipsPageSuccessAction implements Action {

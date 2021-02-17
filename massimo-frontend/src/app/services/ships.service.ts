@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ShipResponse } from '../models/ships/shipResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,8 @@ export class ShipsService {
 
   constructor(private http: HttpClient) { }
 
-  getShips(): Observable<any> {
-    return this.http.get(this.url).pipe(
+  getShips(page = 1): Observable<ShipResponse> {
+    return this.http.get<ShipResponse>(this.url).pipe(
       map(data => data)
     );
   }

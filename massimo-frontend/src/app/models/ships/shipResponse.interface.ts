@@ -1,4 +1,4 @@
-import { Ship } from "./ship.interface";
+import { Ship } from './ship.interface';
 
 export interface ShipResponse {
     count: number;
