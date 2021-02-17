@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ShipsService } from 'src/app/services/ships.service';
 import { ShipsComponent } from './ships.component';
 import { BehaviorSubject, of } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ShipsComponent', () => {
   let component: ShipsComponent;
@@ -23,6 +24,7 @@ describe('ShipsComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ShipsComponent, MockShipDetails ],
+      imports: [HttpClientModule],
       providers: [
         {provide: ShipsService, useValue: serviceMock}
       ]
