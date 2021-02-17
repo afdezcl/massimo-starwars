@@ -20,13 +20,11 @@ export class ShipsComponent implements OnInit {
   ngOnInit(): void {
     this.store.select(store => store.ships.list).subscribe(res => {
       this.dataList = res;
-      console.log(res);
     });
     this.getShips();
   }
 
   getShips(page?: number): void {
-    console.log('Page ' + page);
     this.store.dispatch(new LoadShipsPageAction({page}));
   }
 }
