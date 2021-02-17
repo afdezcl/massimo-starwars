@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Register } from 'src/app/models/auth/register.interface';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +53,7 @@ export class RegisterComponent implements OnInit {
       this.authService.register(user)
         .subscribe((response: any) => {
           this.router.navigateByUrl('');
+          this.toastr.success('Registered succesfully. You can sign in now');
         },
           (error: HttpErrorResponse) => {
             this.handleRegisterError(error);
@@ -60,7 +63,7 @@ export class RegisterComponent implements OnInit {
 
   handleRegisterError(error: HttpErrorResponse): void {
     if (error.status === this.ERROR_CODE_USER_EXISTS) {
-
+      this.toastr.error('This account already exists');
     }
   }
 
