@@ -18,7 +18,8 @@ export class ShipsDetailsComponent implements OnInit {
   modelDetails = '';
   starshipClass = '';
 
-  constructor() {
+  constructor(
+  ) {
   }
 
   ngOnInit(): void {

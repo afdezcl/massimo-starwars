@@ -2,18 +2,18 @@ import { ShipResponse } from 'src/app/models/ships/shipResponse.interface';
 import { ShipsAction, ShipsActionTypes } from '../actions/ships.actions';
 
 export interface ShipsState {
-    list: ShipResponse[];
+    list: ShipResponse;
     loading: boolean;
     error: Error;
 }
 
 const initialState: ShipsState = {
-    list: [],
+    list: undefined,
     loading: false,
     error: undefined
 };
 
-export function ShoppingReducer(state: ShipsState = initialState, action: ShipsAction): ShipsState {
+export function ShipsReducer(state: ShipsState = initialState, action: ShipsAction) {
     switch (action.type) {
         case ShipsActionTypes.LOAD_SHIPS_PAGE:
             return {
@@ -23,14 +23,13 @@ export function ShoppingReducer(state: ShipsState = initialState, action: ShipsA
         case ShipsActionTypes.LOAD_SHIPS_PAGE_SUCCESS:
             return {
                 ...state,
-                list: [...state.list, action.payload],
+                list: action.payload,
                 loading: false
             };
         case ShipsActionTypes.LOAD_SHIPS_PAGE_FAILURE:
             return {
                 ...state,
-                error: action.payload,
-                loading: false
+                error: action.payload
             };
         default:
             return state;

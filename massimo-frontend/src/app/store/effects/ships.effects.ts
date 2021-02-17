@@ -9,10 +9,11 @@ import {
     ShipsActionTypes
 } from '../actions/ships.actions';
 import { ShipsService } from 'src/app/services/ships.service';
+import { ShipResponse } from 'src/app/models/ships/shipResponse.interface';
 
 
 @Injectable()
-export class ShoppingEffects {
+export class ShipsEffects {
 
     loadShips$ = createEffect(() => this.actions$
         .pipe(
@@ -20,7 +21,7 @@ export class ShoppingEffects {
             mergeMap(
                 (data) => this.shipsService.getShips(data.payload.page)
                     .pipe(
-                        map(response => {
+                        map((response: ShipResponse) => {
                             return new LoadShipsPageSuccessAction(response);
                         }),
                         catchError(error => of(new LoadShipsPageFailureAction(error)))
