@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiAuthentication: 'http://localhost:3000'
+  apiAuthentication: 'http://localhost:3000',
+  imagesAPI: 'https://starwars-visualguide.com/assets/img/starships/'
 };
 
 /*

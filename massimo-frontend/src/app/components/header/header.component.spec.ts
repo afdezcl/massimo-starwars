@@ -1,5 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -9,7 +11,8 @@ describe('HeaderComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ HeaderComponent ],
-      imports: [RouterTestingModule]
+      imports: [RouterTestingModule, HttpClientModule],
+      providers: [AuthenticationService]
     })
     .compileComponents();
   });

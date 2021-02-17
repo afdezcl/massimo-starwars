@@ -6,6 +6,20 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { throwError } from 'rxjs';
 import { Register } from 'src/app/models/auth/register.interface';
 import { RegisterComponent } from './register.component';
+import { ToastrService } from 'ngx-toastr';
+
+const toastrService = {
+  success: (
+    message?: string,
+    title?: string,
+    override?: any
+  ) => {},
+  error: (
+    message?: string,
+    title?: string,
+    override?: any
+  ) => {},
+};
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -15,6 +29,7 @@ describe('RegisterComponent', () => {
   let authServiceMock;
   let routerMock;
   let formBuilderMock;
+  let toastMock;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -25,6 +40,9 @@ describe('RegisterComponent', () => {
         ReactiveFormsModule,
         HttpClientModule
       ],
+      providers: [
+        { provide: ToastrService, useValue: toastrService }
+      ]
 
     }).compileComponents();
   }));
@@ -40,12 +58,14 @@ describe('RegisterComponent', () => {
       navigateByUrl: jest.fn()
     };
 
+    toastMock = toastrService;
     formBuilderMock = new FormBuilder();
 
     component = new RegisterComponent(
       formBuilderMock,
       routerMock,
-      authServiceMock
+      authServiceMock,
+      toastMock
     );
 
     component = fixture.componentInstance;

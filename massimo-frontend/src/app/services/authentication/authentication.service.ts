@@ -25,6 +25,10 @@ export class AuthenticationService {
       }));
   }
 
+  logOut(): void {
+    localStorage.clear();
+  }
+
   setJwtToken(token: string): void {
     localStorage.setItem('JWT_TOKEN', token);
   }

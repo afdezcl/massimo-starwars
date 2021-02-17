@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/models/auth/login.interface';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +49,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(user)
         .subscribe(() => {
           this.router.navigateByUrl('/ships');
+          this.toastr.success('Welcome!');
         },
           (error: HttpErrorResponse) => {
             this.handleLoginError(error);
@@ -56,7 +59,7 @@ export class LoginComponent implements OnInit {
 
   handleLoginError(error: HttpErrorResponse): void {
     if (error.status === this.ERROR_CODE_WRONG_LOGIN) {
-      console.log('Email or password was not correct');
+      this.toastr.error('Email or password was not correct');
     }
   }
 

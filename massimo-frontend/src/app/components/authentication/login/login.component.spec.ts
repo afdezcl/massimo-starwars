@@ -6,7 +6,20 @@ import { throwError } from 'rxjs';
 import { Login } from 'src/app/models/auth/login.interface';
 import { LoginResponse } from 'src/app/models/auth/loginResponse.interface';
 import { LoginComponent } from './login.component';
+import { ToastrService } from 'ngx-toastr';
 
+const toastrService = {
+  success: (
+    message?: string,
+    title?: string,
+    override?: any
+  ) => {},
+  error: (
+    message?: string,
+    title?: string,
+    override?: any
+  ) => {},
+};
 describe('LoginComponent', () => {
 
   let component: LoginComponent;
@@ -16,6 +29,7 @@ describe('LoginComponent', () => {
   let formBuilderMock;
   let loginForm;
   let compiled;
+  let toastMock;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -26,6 +40,10 @@ describe('LoginComponent', () => {
         ReactiveFormsModule,
         HttpClientModule
       ],
+      providers: [
+        { provide: ToastrService, useValue: toastrService }
+      ]
+
     }).compileComponents();
   }));
 
@@ -40,12 +58,14 @@ describe('LoginComponent', () => {
       navigateByUrl: jest.fn()
     };
 
+    toastMock = toastrService;
     formBuilderMock = new FormBuilder();
 
     component = new LoginComponent(
       formBuilderMock,
       routerMock,
-      authServiceMock
+      authServiceMock,
+      toastMock
     );
 
     component = fixture.componentInstance;
