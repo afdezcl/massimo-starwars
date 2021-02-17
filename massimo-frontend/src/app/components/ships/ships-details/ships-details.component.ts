@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { environment } from 'src/environments/environment';
 declare var $: any;
 
 
@@ -11,7 +12,6 @@ export class ShipsDetailsComponent implements OnInit {
 
   @Input() dataList: any;
   config: any;
-  shipId = '';
   url = '';
   // Modal
   titleDetails = '';
@@ -22,20 +22,19 @@ export class ShipsDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.config = {
-        itemsPerPage: 5,
-        currentPage: 1,
-        totalItems: this.dataList.length
-      };
+    this.config = {
+      itemsPerPage: 10,
+      currentPage: 1,
+      totalItems: this.dataList.length
+    };
   }
 
-  getStarshipId(url) {
-    this.shipId = url.slice(0, -1);
-    const urlImage = `${this.shipId}.jpg`;
-    return urlImage !== '';
+  getStarshipId(url: string): string {
+    const shipId = url.slice(0, -1).split('/').slice(-1).pop();
+    return `${environment.imagesAPI}${shipId}.jpg`;
   }
 
-  pageChanged(event){
+  pageChanged(event) {
     this.config.currentPage = event;
   }
 
