@@ -4,32 +4,36 @@ import { HttpClientModule } from '@angular/common/http';
 import { ShipsDetailsComponent } from './ships-details.component';
 import { Component, Pipe, PipeTransform } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { StoreModule } from '@ngrx/store';
+import { ShipsReducer } from 'src/app/store/reducers/ships.reducer';
 
 describe('ShipsDetailsComponent', () => {
   let component: ShipsDetailsComponent;
   let fixture: ComponentFixture<ShipsDetailsComponent>;
 
 
-  @Pipe({name: 'paginate'})
+  @Pipe({ name: 'paginate' })
   class MockPipe implements PipeTransform {
-      transform(value: number): number {
-          // Do stuff here, if you want
-          return value;
-      }
+    transform(value: number): number {
+      // Do stuff here, if you want
+      return value;
+    }
   }
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule, NgxPaginationModule],
-      declarations: [ ShipsDetailsComponent, MockPipe ]
+      imports: [HttpClientModule, NgxPaginationModule,
+        StoreModule.forRoot({
+          ships: ShipsReducer
+        })],
+      declarations: [ShipsDetailsComponent, MockPipe]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ShipsDetailsComponent);
     component = fixture.componentInstance;
-    component.dataList = {};
     fixture.detectChanges();
   });
 

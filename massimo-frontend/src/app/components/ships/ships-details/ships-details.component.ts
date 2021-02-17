@@ -1,4 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ShipResponse } from 'src/app/models/ships/shipResponse.interface';
+import { AppState } from 'src/app/store/models/app-state.model';
 import { environment } from 'src/environments/environment';
 declare var $: any;
 
@@ -10,24 +13,39 @@ declare var $: any;
 })
 export class ShipsDetailsComponent implements OnInit {
 
-  @Input() dataList: any;
-  config: any;
-  url = '';
+  @Output() shipPageChanged: EventEmitter<number> = new EventEmitter<number>();
+  public config: any;
+  public currentPage = 1;
+  public dataList: ShipResponse;
+
   // Modal
   titleDetails = '';
   modelDetails = '';
   starshipClass = '';
 
+
   constructor(
+    private store: Store<AppState>
   ) {
   }
 
   ngOnInit(): void {
-    this.config = {
-      itemsPerPage: 10,
-      currentPage: 1,
-      totalItems: this.dataList.length
-    };
+    this.store.select(store => store.ships.list).subscribe((response: ShipResponse) => {
+      if (response) {
+        this.dataList = response;
+        this.initConfigurationPagination();
+      }
+    });
+  }
+
+  initConfigurationPagination() {
+    if (this.dataList) {
+      this.config = {
+        itemsPerPage: 10,
+        currentPage: this.currentPage,
+        totalItems: this.dataList.count
+      };
+    }
   }
 
   getStarshipId(url: string): string {
@@ -35,8 +53,9 @@ export class ShipsDetailsComponent implements OnInit {
     return `${environment.imagesAPI}${shipId}.jpg`;
   }
 
-  pageChanged(event) {
-    this.config.currentPage = event;
+  pageChanged(page: number) {
+    this.currentPage = page;
+    this.shipPageChanged.emit(page);
   }
 
   openDetails(details) {

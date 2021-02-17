@@ -1,3 +1,3 @@
 <div class="container">
-        <app-ships-details [dataList]="dataList"></app-ships-details>
+        <app-ships-details (shipPageChanged)="getShips($event)"></app-ships-details>
 </div>
