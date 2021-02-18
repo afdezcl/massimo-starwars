@@ -1,5 +1,5 @@
 const globalVariables = require('../../fixtures/global-data.json')
-describe("Visit login page and sign in an user", () => {
+describe("Visit ships pages to interact", () => {
 
     beforeEach(() => {
         cy.visit('/');
@@ -39,7 +39,7 @@ describe("Visit login page and sign in an user", () => {
         cy.get(':nth-child(1) > .panel-body > .img-fluid').should('be.visible');
     });
 
-    it.only("Should show ships details", () => {
+    it("Should show ships details", () => {
         cy.get('body').scrollIntoView({ offset: { top: '500', left: 0 } });
         cy.get(':nth-child(3) > .panel-heading > .panel-title').then(($title) => {
             cy.get(':nth-child(3) > .panel-body > .img-fluid').click();
