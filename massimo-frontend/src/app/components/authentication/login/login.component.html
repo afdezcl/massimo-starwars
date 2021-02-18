@@ -3,7 +3,7 @@
     <p class="text-center">Enter your email and password to access</p>
     <form [formGroup]="loginForm" (submit)="loginUser()" class="form">
         <div class="form-group mt-5">
-            <input type="email" name="email" class="form-control" placeholder="Email" formControlName="email"/>
+            <input type="email" name="email" class="form-control" placeholder="Email" formControlName="email" data-cy="emailInput"/>
             <hr class="hr-line">
             <div
                 *ngIf="loginForm.get('email').errors && (loginForm.get('email').dirty || loginForm.get('email').touched)">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="form-group mt-5">
-            <input type="password" class="form-control" placeholder="Password" formControlName="password" />
+            <input type="password" class="form-control" placeholder="Password" formControlName="password" data-cy="passwordInput"/>
             <hr class="hr-line">
             <div
                 *ngIf="loginForm.get('password').errors && (loginForm.get('password').dirty || loginForm.get('password').touched)">
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="buttons">
-            <button type="submit" [disabled]="loginForm.invalid" class="btn buttons__login">Sign in</button>
+            <button type="submit" [disabled]="loginForm.invalid" class="btn buttons__login" data-cy="signInButton">Sign in</button>
             <div class="text-center">
                 <span class="buttons_span">Do not you have an account yet?</span> <a routerLink="/register"
                     class="btn buttons__link">Sign up</a>

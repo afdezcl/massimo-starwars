@@ -2,7 +2,7 @@
     <h2 class="text-center">Register</h2>
     <form [formGroup]="registerForm" (submit)="registerUser()">
         <div class="form-group mt-5">
-            <input type="text" name="username" class="form-control" placeholder="Username" formControlName="username" />
+            <input type="text" name="username" class="form-control" placeholder="Username" formControlName="username" data-cy="usernameInput"/>
             <hr class="hr-line">
             <div
                 *ngIf="registerForm.get('username').errors && (registerForm.get('username').dirty || registerForm.get('username').touched)">
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="form-group mt-5">
-            <input type="text" name="email" class="form-control" placeholder="Email" formControlName="email" />
+            <input type="text" name="email" class="form-control" placeholder="Email" formControlName="email" data-cy="emailInput"/>
             <hr class="hr-line">
             <div
                 *ngIf="registerForm.get('email').errors && (registerForm.get('email').dirty || registerForm.get('email').touched)">
@@ -26,7 +26,7 @@
         </div>
         <div class="form-group mt-5">
             <input type="password" name="password" class="form-control" placeholder="Password"
-                formControlName="password" />
+                formControlName="password" data-cy="passwordInput"/>
             <hr class="hr-line">
             <div
                 *ngIf="registerForm.get('password').errors && (registerForm.get('password').dirty || registerForm.get('password').touched)">
@@ -40,14 +40,14 @@
         </div>
         <div class="form-group mt-5" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
             <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm password"
-                formControlName="confirmPassword" />
+                formControlName="confirmPassword" data-cy="confirmPasswordInput"/>
             <hr class="hr-line">
             <small *ngIf="registerForm.hasError('notSame')" class="colorInvalid">
                 Password do not match
             </small>
         </div>
         <div class="buttons">
-            <button type="submit" [disabled]="registerForm.invalid" class="btn buttons__login">Register</button>
+            <button type="submit" [disabled]="registerForm.invalid" class="btn buttons__login" data-cy="signUpButton">Register</button>
             <img *ngIf="dataLoading"
                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             <button type="button" class="btn buttons__register" routerLink="/">Cancel</button>
