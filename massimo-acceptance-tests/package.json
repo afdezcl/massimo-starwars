@@ -1,0 +1,11 @@
+{
+  "name": "massimo-acceptance-tests",
+  "version": "1.0.0",
+  "description": "Acceptance tests with Cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adrian Fernandez",
+  "license": "ISC"
+}
