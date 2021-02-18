@@ -1,0 +1,10 @@
+{
+    "video": false,
+    "screeshot": false,
+    "retries": {
+        "runMode": 2,
+        "openMode": 0
+    },
+    "viewportWidth": 1280,
+    "viewportHeight": 720
+}

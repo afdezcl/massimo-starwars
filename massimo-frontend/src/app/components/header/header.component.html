@@ -1,0 +1,16 @@
+<nav class="navbar navbar-dark navbar-expand-lg principalHeader">
+  <div class="container">
+    <div class="col text-center" *ngIf="!authService.isLoggedIn()">
+      <a [routerLink]="['']" class="navbar-brand" >
+        MASSIMO STARWARS
+      </a>
+    </div>
+    <div class="dropdown" *ngIf="authService.isLoggedIn()">
+      <i class="fas fa-bars" id="dropdownMenuButton" data-toggle="dropdown"></i>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" [routerLink]="'ships'">Ships</a>
+          <a class="dropdown-item" (click)="onLogOut()">Log out</a>
+      </div>
+  </div>
+  </div>
+</nav>
