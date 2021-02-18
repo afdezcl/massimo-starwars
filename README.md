@@ -71,7 +71,7 @@ Acceptance tests have been made with Cypress. There are simple tests to testing 
 ## Commit naming convention
 A commit must be named following this convention:
 
-* Start with emoji fron (https://gitmoji.dev/) as TAG, follow of  MASS-[ISSUE_NUMBER]:   [DESCRIPTION]
+* Start with emoji from (https://gitmoji.dev/) as TAG, follow of  MASS-[ISSUE_NUMBER]:   [DESCRIPTION]
 * For example: `:bug: MASS-9: Show alert when login is wrong`
 
 ## Branch naming convention
@@ -84,4 +84,13 @@ A branch must be named following this convention:
 ## NOTES
 All this project has been divide in specific issues. Each issue is a BRANCH. Each branch is a PULL REQUEST to development branch. If all is correct, appear a new pull request from development to master branch.
 
+
+## Improve Performance (Task 7)
+It has been implement a cache in frontend, but it would be interesting implement another cache in backend (to avoid request to DB, although in this case we are using a free API to this request). 
+
+I think that the problem in frontend cache is 'When we invalidate this cache?'. For example, if a image has been changed. We would need for example an event from backend to tell the frontend that something has been changed (and update frontend cache). We could use SSE (Server Sent Events).
+
+On the other hand, implement a CDN it would be interesting too (between frontend and backend).
+
+In resume, there are different ways to resolve this problem.
 
