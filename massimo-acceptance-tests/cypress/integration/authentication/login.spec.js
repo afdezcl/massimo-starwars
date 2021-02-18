@@ -18,6 +18,7 @@ describe("Visit login page and sign in an user", () => {
         cy.location().should((location) => {
             expect(location.href).to.eq('http://localhost:4200/ships')
         });
+        expect(localStorage.getItem('JWT_TOKEN')).to.be.null;
     });
 
     it("Should NOT sign in and show alert", () => {
@@ -30,6 +31,16 @@ describe("Visit login page and sign in an user", () => {
             .should('have.value', password);
         cy.get('[data-cy=signInButton]').click();
         cy.get('.ng-trigger > .ng-tns-c19-0').contains('Email or password was not correct');
+    });
+
+    it("Should sign in and logout", () => {
+        cy.login(globalVariables.email, globalVariables.password);
+        cy.get('#dropdownMenuButton').click();
+        cy.get('.dropdown-menu > :nth-child(2)').click();
+        expect(localStorage.getItem('JWT_TOKEN')).to.be.null;
+        cy.location().should((location) => {
+            expect(location.href).to.eq('http://localhost:4200/')
+        });
     });
 
 });
